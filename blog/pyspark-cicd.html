@@ -1,0 +1,298 @@
+<!--
+author: Boostraptheme
+author URL: https://boostraptheme.com
+License: Creative Commons Attribution 4.0 Unported
+License URL: https://creativecommons.org/licenses/by/4.0/
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link rel="shortcut icon" href="../img/blog-solid.ico">
+    <title>Soyel Alam</title>
+
+    <!-- Global stylesheets -->
+    <link href="../css/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+    <!-- <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet"> -->
+    <script src="https://kit.fontawesome.com/004e4d6853.js" crossorigin="anonymous"></script>
+    <link href="../css/devicons/css/devicons.min.css" rel="stylesheet">
+    <link href="../css/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+</head>
+
+<body id="page-top">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-blog fixed-top" id="sideNav">
+      <a class="navbar-brand " href="#page-top">
+        <span class="d-block d-lg-none  mx-0 px-0"><img src="../img/logo-white.png" alt="" class="img-fluid"></span>
+        <span class="d-none d-lg-block">
+          <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="../img/profile.jpg" alt="">
+        </span>
+      </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link " href="index.html#about">About</a>
+                </li>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link  active" href="index.html#portfolio">Blog</a>
+            </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="index.html#experience">Experience</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="index.html#skills">Skills</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="index.html#awards">Education</a>
+                <li class="nav-item">
+                    <a class="nav-link " href="index.html#contact">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container-fluid p-0">
+
+    <!--====================================================
+                        PORTFOLIO
+    ======================================================-->
+    <section class="resume-section p-3 p-lg-5 d-flex d-column" id="blog">
+        <div class="my-auto">
+            <div class="mb-0">
+                  <h2>Dr. PySpark: How I Learned to Stop Worrying and Love Data Pipeline Testing</h2>
+                  <p>
+                     One major challenge in data pipeline implementation is reliably testing the pipeline codes.
+                     The outcome of the code is tightly coupled with data and the environment and this consequently blocks the developer to follow test-driven development, identify early bugs by writing good unit testing, and release the code via CICD with confidence.<br/>
+                     One way to overcome the reliability challenge is to use immutable data to run and test the pipeline so that the result of ETL functions can be matched against known outputs.<br/>
+                     Obviously, this requires a good knowledge of the application and how well the data matches business requirements. Also required are some set-ups to enable the developer to focus on building the application instead of spending time on the environment preparation.
+                     This blog-post focuses on providing a model of self-contained data pipelines with CICD implementation.
+                    </p>
+                  <h4>Introduction</h4>
+                  <p>
+                      A typical pipeline uses files, tables and dataframes these will be made available from datafiles stored in git along with the pipeline code.<br/>
+                      We will leverage <a href='https://spark.apache.org/'>Apache PySpark</a> and <a href='https://docs.pytest.org/en/stable/'>Pytest</a> to develop a generic conftest file for providing the dev environment.
+                      Follow along code is available at <a href='https://github.com/soyelherein/pyspark-cicd-template'><strong>https://github.com/soyelherein/pyspark-cicd-template</strong></a><br/><br/>
+                  </p>
+                  <p>
+                    Lets look into our pipeline and break it into testable modules.
+                    For demonstration purposes, let’s consider we have pipeline that consumes “pageviews” file and merges it into the final target table.
+                      <div class="container">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6">
+                                <div class="col-md-4 col-sm-4"><strong>Input Table</strong></div>
+                                <table border="1px solid black">
+                                    <tr>
+                                        <th>email</th><th>page_view</th><th>created_date</th><th>last_active</th>
+                                    </tr>
+                                    <tr>
+                                        <td>james@example.com</td><td>10</td><td>2020-01-01</td><td>2020-07-04</td>
+                                    </tr>
+                                    <tr>
+                                        <td>mary@example.com</td><td>100</td><td>2020-02-04</td><td>2020-02-04</td>
+                                    </tr>
+                                    <tr>
+                                        <td>john@example.com</td><td>1</td><td>2020-03-04</td><td>2020-06-04</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <div class="col-md-5 col-sm-5"><strong>Incremental File</strong></div>
+                                <table border="1px solid black">
+                                    <tr>
+                                        <th>email,pages</th>
+                                    </tr>
+                                    <tr>
+                                        <td>james@example.com,home</td>
+                                    </tr>
+                                    <tr>
+                                        <td>james@example.com,about</td>
+                                    </tr>
+                                    <tr>
+                                        <td>patricia@example.com,home</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row" style="border: 10px,10px,10px,10px;">
+                            <div class="col-md-5 col-sm-4" style="border: 10px,10px,10px,10px;">
+                                <div class="col-md-4 col-sm-4"><strong>Output Table</strong></div>
+                                <table border="1px solid black">
+                                    <tr>
+                                        <th>email</th><th>page_view</th><th>created_date</th><th>last_active</th>
+                                    </tr>
+                                    <tr>
+                                        <td>james@example.com</td><td>12</td><td>2020-01-01</td><td>2020-07-21</td>
+                                    </tr>
+                                    <tr>
+                                        <td>mary@example.com</td><td>100</td><td>2020-02-04</td><td>2020-02-04</td>
+                                    </tr>
+                                    <tr>
+                                        <td>john@example.com</td><td>1</td><td>2020-03-04</td><td>2020-06-04</td>
+                                    </tr>
+                                    <tr>
+                                        <td>patricia@example.com</td><td>1</td><td>2020-07-21</td><td>2020-07-01</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </p>
+                <p>
+                    <script src="https://gist.github.com/soyelherein/0297e66134f48025aa536d3af587e7cb.js"></script>
+                      If you look closely, there are five major sections in the pipeline.
+                      <ol><strong>
+                          <li>Creation and stopping of spark session</li>
+                          <li>Declarations for static configutarion</li>
+                          <li>Extract</li>
+                          <li>Transform</li>
+                          <li>Load</li>
+                        </strong></ol>
+                      Just a quick sneak peak at the overall final structure post decoupling. Move on now, each part will be explained in later sections.
+                    </p>
+                    
+                    <script src="https://gist.github.com/soyelherein/4846e622ee40adcd2b2680aac5fbb986.js"></script>
+                    <h4>Decouple Spark Environment</h4>
+                    <p>As it becomes tedious and impractical to test and debug spark-jobs by sending them to a cluster (<em>spark-submit</em>) and teams can become Sherlock Holmes — investigating clues in stack-traces on what could have gone wrong.
+                        <strong>pipenv</strong> — To avoid the lifeless scenarios we might encounter, we can create an isolated environment (say thanks to <a href='https://pypi.org/project/pipenv/'><em>pipenv</em></a>) to initiate a <em>Pyspark</em> session whereas:</p>
+                        <ul>
+                            <li><p>all development and production dependencies are described in the Pipfile</p>
+                            </li>
+                            <li><p><em>pipenv</em> helps us managing project dependencies and Python environments (i.e. virtual environments)</p>
+                            </li>
+                            <li><p>convenient with dependencies management on an ad-hoc basis just with <code>pip install pipenv --dev</code></p>
+                            </li>
+                        </ul>
+                        <p><strong>dependencies.job_submitter</strong> — Since a data application can have numerous upstream and downstream pipelines, it makes sense to take the spark environment management and other common tasks into a shared entry point so that the applications can focus only on their business logic.<br/>
+                            This submitter module takes the job name as an argument and executes the functionality defined in it. The pipeline itself has to expose a run method(discussed in the Decouple Application section) that is the entry point for the ETL. With this submitter module, the command is changed like below command:
+                        <pre><code style="color: tomato; margin: 0,0,0,0;">
+                            $SPARK_HOME/bin/spark-submit \
+                            --py-files dependencies/job_submitter.py, jobs/pipeline_wo_modules.py \
+                            dependencies/job_submitter.py --job pipeline_wo_modules
+                        </code></pre>
+                        <p></p>It is entrusted with starting and stopping spark sessions, parsing the configuration files containing static variables, and any dynamic command-line arguments then executing the requested pipeline. Please head back to the <a href='https://github.com/soyelherein/pyspark-cicd-template/blob/master/dependencies/job_submitter.py'>Github</a> repo for the details.</p>
+                        <p><h4>Decouple Application</h4>
+                            <strong>jobs</strong> — We design our functions to have Extract and Load functions to handle the IO operations, we will test those using mocks to avoid side effects. Transform functions are designed to be side-effect free by taking DataFrames as input and returning DataFrames as output, which can be compared against the locally stored data.
+                            Additionally, we will have an entry point method named to run for our pipeline doing the integration of the ETL.
+                            Developers are encouraged to have different pipeline files inside the jobs directory focusing on different business logic instead of having a single big file.</p>
+                            <blockquote><p>Extract — Reads the incremental file and historical data from the table and return 2 Dataframes</p></blockquote>
+                            <blockquote><p>Transform — Calculates the metrics based on incremental and historical DataFrames and return a final DataFrame</p></blockquote>
+                            <blockquote><p>Load — Writes the data into the final output path</p></blockquote>
+                            <blockquote><p>Run — Does the integration between ETL process. It is exposed to the job submitter module. It accepts the spark session, job configurations, and a logger object to execute the pipeline.</p></blockquote>
+                            <p><strong>configs</strong> <strong>and ddl</strong> — We will take out the static configurations and place them in a JSON file (configs/config.json) so that it can be overwritten as per the test config. </p>
+                            <script src="https://gist.github.com/soyelherein/20a0ea4114d782fa85e39d13cb82a3bf.js"></script>
+                            <p>As explained in the job_submitter module, this config along with any dynamic parameters to the job is made available to the pipeline methods as a dictionary.
+                                We will also take out the schema from the code in the ddl/schema.py file. This will be helpful to create the test data in the form of DataFrames and Tables using a helper method during testing.</p>
+                                <script src="https://gist.github.com/soyelherein/ab5024b4da6aa22a1b84e4b7aa6eaf7b.js"></script>
+                                <p>Given that we have structured our ETL jobs in testable modules we are all set to focus on the tests.</p>
+                            <p><h4>Testbed</h4>
+                                <strong>conftest</strong> — We have used P<a href='https://docs.pytest.org/en/stable/'>ytest</a> style tests for our pipeline along with leveraging a few features (i.e. mock, patch) from <a href='https://docs.python.org/3/library/unittest.html'>unittest</a>.
+                                This file does the heavy lifting of setting up jobs for tests i.e. providing test sparkSession and mocks creating the tables and DataFrames locally from the CSV files. The mapping is defined in the testbed.json file.
+                                <script src="https://gist.github.com/soyelherein/2ada1d422625dbed3f6da22330dccded.js"></script>
+                                This config is pretty self-explanatory. We have defined the DataFrame and table details under the “data” key.<br/>
+                                If the job accepts any dynamic parameter as job-args(i.e. process_date), that override should be part of the “config” key.
+                                It would be sent as a dictionary argument to the job. <a href="https://github.com/soyelherein/pyspark-cicd-template/blob/286111c75714d09092df68d92c57012f3e5fc272/tests/conftest.py#L90">setup_testbed</a> a helper method is responsible for producing the DataFrame and tables once the test_bed.json file is configured.
+                                The file format can be configured as per the need in the conftest, default is as shown below.
+                                <script src="https://gist.github.com/soyelherein/caf452da8675ebefdf4f3d0679577463.js"></script>
+                                For read and write operations we encourage teams to use the generic methods like “<a href='https://spark.apache.org/docs/latest/sql-data-sources-load-save-functions.html'>read.load</a>” and “<a href='https://spark.apache.org/docs/latest/sql-data-sources-load-save-functions.html'>write</a>”, instead of “read.csv” or “read.orc” so that our mocks can be more generic.</p>
+                                <p><strong>test_pipeline —</strong>We have created a session-level <a href='https://docs.pytest.org/en/stable/fixture.html'>pytest fixture</a> containing all the hard work done in the conftest in an object. As you see in the later section we will perform the entire testing using its member attributes.<br/>
+                                Now let’s test our <strong>transform</strong> method that takes the incremental and historical DataFrames as input and produces the final DataFrame.
+                                <script src="https://gist.github.com/soyelherein/c03d865f8a16e9999e1526e70543aca7.js"></script>
+                                Since the I/O operations are already been separated out we can introspect the calling behavior of <strong>extract and load</strong> using mocks. These mocks are set up in the conftest file.
+                                <script src="https://gist.github.com/soyelherein/382b51acc81981bbfa91b7fde6872911.js"></script>
+                                Since we have already tested individual methods we can make use of patching to do the <strong>integration</strong> test by patching the outcomes of different functions and avoiding side-effects of writing into the disk.
+                                <script src="https://gist.github.com/soyelherein/bdcb5721b5ea7d0274d2be9c903d2672.js"></script>
+                                These tests can be run from IDE or by simply running <code>pytest</code> command.</p>
+                                <p>
+                                    <div class="container">
+                                        <div class="row">
+                                        <div class="col-md-8 col-sm-8">
+                                    <img src="../img/pytest.png" style="max-width: 100%;" />
+                                </div></div></div></p>
+                                <p>In a complex production scenario, related pipeline methods can be connected in terms of inputs and expected outputs which is immutable. A fair understanding of application and segregation of different subject area can provide a valuable regression like confidence for CICD integration.</p>                    
+                                <p><h4>CICD : </h4>
+                                <strong>Dockerfile —</strong> Contains the dockerized container with the virtual environment set up for the Jenkins agent.<br/>
+                                <strong>Makefile —</strong>  This Makefile utility zips all the code, dependencies, and config in the packages.zip file so that Jenkins can create the artifact, and the CD process can upload it into a repository. The final code can be submitted as below:<br/>
+                                <pre><code class='language-shell' lang='shell'>$SPARK_HOME/bin/spark-submit \
+                                --py-files packages.zip \
+                                --files configs/config.json \
+                                dependencies/job_submitter.py --job pipeline --conf-file configs/config.json
+                                </code></pre>
+                                <strong>Jenkinsfile —</strong> It defines the CICD process. where the Jenkins agent runs the docker container defined in the Dockerfile in the prepare step followed by running the test. Once the test is successful in the prepare artifact step, it uses the makefile to create a zipped artifact. The final step is to publish the artifact which is the deployment step.<br/>
+                                <script src="https://gist.github.com/soyelherein/18b8ab7a25bad99e1eba20aa1f046434.js"></script></p>
+                                <br/>
+                                <p><img src="../img/jenkins.png" alt="jenkins project config img" style="max-width: 100%;"/></p>
+                                <p>
+                                Source code: <a href='https://github.com/soyelherein/pyspark-cicd-template'><strong>https://github.com/soyelherein/pyspark-cicd-template</strong></a>
+
+                                </p>
+
+
+                                    
+                                <h4>References</h4>
+                                <p><a href='https://alexioannides.com/2019/07/28/best-practices-for-pyspark-etl-projects/'><strong>Best Practices for PySpark ETL Projects</strong>
+                                <em>I have often lent heavily on Apache Spark and the SparkSQL APIs for operationalising any type of batch data-processing…</em>alexioannides.com</a></p>
+                                <p><a href='https://developerzen.com/best-practices-writing-production-grade-pyspark-jobs-cb688ac4d20f'><strong>Best Practices Writing Production-Grade PySpark Jobs</strong>
+                                <em>How to Structure Your PySpark Job Repository and Code</em>developerzen.com</a></p>
+                                <p><a href='https://medium.com/wbaa/datas-inferno-7-circles-of-data-testing-hell-with-airflow-cef4adff58d8'><strong>Data’s Inferno: 7 Circles of Data Testing Hell with Airflow</strong>
+                                <em>Why data testing is hard, but you should really do it!</em>medium.com</a></p>
+
+                                <p style="text-align: right; color:gray">Published on 18 December 2020 ©soyel.alam@ucdconnect.ie</p>
+                 </div>
+          </div>
+  </section>
+
+
+
+    <!-- Global javascript -->
+    <script src="../js/jquery/jquery.min.js"></script>
+    <script src="../js/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="../js/jquery-easing/jquery.easing.min.js"></script>
+    <script src="../js/counter/jquery.waypoints.min.js"></script>
+    <script src="../js/counter/jquery.counterup.min.js"></script>
+    <script>
+        $(document).ready(function(){
+
+        $(".filter-b").click(function(){
+            var value = $(this).attr('data-filter');
+            if(value == "all")
+            {
+                $('.filter').show('1000');
+            }
+            else
+            {
+                $(".filter").not('.'+value).hide('3000');
+                $('.filter').filter('.'+value).show('3000');
+            }
+        });
+
+        if ($(".filter-b").removeClass("active")) {
+          $(this).removeClass("active");
+        }
+        $(this).addClass("active");
+        });
+
+        // SKILLS
+        $(function () {
+            $('.counter').counterUp({
+                delay: 10,
+                time: 2000
+            });
+
+        });
+    </script>
+</body>
+
+</html>
