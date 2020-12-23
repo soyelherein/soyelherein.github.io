@@ -163,6 +163,19 @@ a:active {
     cursor: pointer;
 }
 
+#submitBtn {
+    background-color: transparent;
+    text-align: center;
+    border-width: 1px;
+    border-radius: 0px;
+    font-size: 16px;
+    padding: 10px 15px;
+    font-weight: 400;
+    text-transform: uppercase;
+    border-color: #2196f3;
+    background-color: #2196f3;
+    color: #fff;
+}
 /*==================================================
                   SECTION (Generic)
 ====================================================*/
