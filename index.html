@@ -4,7 +4,6 @@ author URL: https://boostraptheme.com
 License: Creative Commons Attribution 4.0 Unported
 License URL: https://creativecommons.org/licenses/by/4.0/
 -->
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,6 +25,7 @@ License URL: https://creativecommons.org/licenses/by/4.0/
     <link href="css/devicons/css/devicons.min.css" rel="stylesheet">
     <link href="css/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
 <body id="page-top">
@@ -60,7 +60,16 @@ License URL: https://creativecommons.org/licenses/by/4.0/
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
                 </li>
+                <li>
+                <ul class="list-inline social-icon-f top-data">
+                  <li><a href="https://www.linkedin.com/in/soyel-alam-98945598/" target="_empty"><i class="fa top-social fa-linkedin" style="color: #4AB3F4; border-color:#4AB3F4;"></i></a></li>
+                  <li><a href="https://www.github.com/soyelherein" target="_empty"><i class="fa top-social fa-github" style="color:#101110; border-color:#101110;"></i></a></li>
+                  <li><a href="https://twitter.com/Soyelherein" target="_empty"><i class="fa top-social fa-twitter" style="color: #4AB3F4; border-color:#4AB3F4;"></i></a></li>
+                  <li><a href="https://www.medium.com/@soyelherein" target="_empty"><i class="fa top-social fa-medium" style="color: #101110; border-color:#101110;"></i></a></li>
+                </ul>
+              </li>
             </ul>
+            
         </div>
     </nav>
 
@@ -81,10 +90,19 @@ License URL: https://creativecommons.org/licenses/by/4.0/
               <p class="mb-5" style="max-width: 500px;" >A technical enthusiastic and dedicated IT professional with diverse experience in Big data, data warehousing and cloud computing. I am eager to be challenged in order to grow and further improve my IT skills.</p>
               <ul class="list-inline list-social-icons mb-0">
                   <li class="list-inline-item">
-                      <a href="https://www.facebook.com/faceofswadesh">
+                      <a href="https://www.linkedin.com/in/soyel-alam-98945598/">
                   <span class="fa-stack fa-lg">
                     <i class="fa fa-circle fa-stack-2x"></i>
-                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+                  </li>
+                  </li>
+                  <li class="list-inline-item">
+                      <a href="https://github.com/soyelherein">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
                   </span>
                 </a>
                   </li>
@@ -95,23 +113,6 @@ License URL: https://creativecommons.org/licenses/by/4.0/
                     <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
                   </span>
                 </a>
-                  </li>
-                  <li class="list-inline-item">
-                      <a href="https://www.linkedin.com/in/soyel-alam-98945598/">
-                  <span class="fa-stack fa-lg">
-                    <i class="fa fa-circle fa-stack-2x"></i>
-                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-                  </li>
-                  <li class="list-inline-item">
-                      <a href="https://github.com/soyelherein">
-                  <span class="fa-stack fa-lg">
-                    <i class="fa fa-circle fa-stack-2x"></i>
-                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-                  </li>
                   <li class="list-inline-item">
                     <a href="https://medium.com/@soyelherein">
                 <span class="fa-stack fa-lg">
@@ -361,48 +362,49 @@ License URL: https://creativecommons.org/licenses/by/4.0/
     ======================================================-->
       <section class="resume-section p-3 p-lg-5 d-flex flex-column">
           <div class="row my-auto" id="contact">
-            <div class="col-md-8">
-              <div class="contact-cont">
-                <h3>CONTACT ME</h3>
-                <div class="heading-border-light"></div>
-                <!-- <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here.</p> -->
+          <div class="col-12">
+                <h2 class="  text-center">EMAIL ME</h2>
+                <div class="mb-5 heading-border"></div>
               </div>
+              <div class="col-7">
+              <form id="contact-form" action="" method="POST" data-netlify="true" data-netlify-recaptcha="true">
+              <?php echo $msg; ?>
               <div class="row con-form">
                 <div class="col-md-12">
-                  <input type="text" name="full-name" placeholder="Full Name" class="form-control">
+                  <input type="text" name="Name" placeholder="Full Name" class="form-control" required>
                 </div>
                 <div class="col-md-12">
-                  <input type="text" name="email" placeholder="Email Id" class="form-control">
+                  <input type="text" name="Email" placeholder="Email Id" class="form-control" required>
                 </div>
                 <div class="col-md-12">
-                  <input type="text" name="subject" placeholder="Subject" class="form-control">
+                  <input type="text" name="Subject" placeholder="Subject" class="form-control" required>
                 </div>
-                <div class="col-md-12"><textarea name="" id=""></textarea></div>
+                <div class="col-md-12"><textarea name="Message" id="" required></textarea></div>
+                </p>
+                <div data-netlify-recaptcha="true"></div>
+                <p>
                 <div class="col-md-12 sub-but"><button class="btn btn-general btn-white" role="button">Send</button></div>
               </div>
             </div>
+          </form>
+</div>
             <div class="col-md-4 col-sm-12 mt-5">
               <div class="contact-cont2">
-                <div class="contact-add contact-box-desc">
+                <!-- <div class="contact-add contact-box-desc">
                   <h3><i class="fa fa-map-marker cl-atlantis fa-2x"></i> Address</h3>
                   <p>128 Gleann Na Ri <br>
                   Dublin, Ireland <br></p>
-                </div>
+                </div> -->
                 <!-- <div class="contact-phone contact-side-desc contact-box-desc">
                   <h3><i class="fa fa-phone cl-atlantis fa-2x"></i> Phone</h3>
                   <p>800 123 3456 <br>900 123 3457</p>
                 </div> -->
                 <div class="contact-mail contact-side-desc contact-box-desc">
-                  <h3><i class="fa fa-envelope-o cl-atlantis fa-2x"></i> Email</h3>
+                  <!-- <h3><i class="fa fa-envelope-o cl-atlantis fa-2x"></i> Email</h3>
                 <address class="address-details-f">
                   Email: <a href="mailto:soyel.alam@ucdconnect.ie" class="">soyel.alam@ucdconnect.ie</a>
-                </address>
-                <ul class="list-inline social-icon-f top-data">
-                  <li><a href="https://www.facebook.com/faceofswadesh" target="_empty"><i class="fa top-social fa-facebook" style="color: #4267b2; border-color:#4267b2;"></i></a></li>
-                  <li><a href="https://twitter.com/Soyelherein" target="_empty"><i class="fa top-social fa-twitter" style="color: #4AB3F4; border-color:#4AB3F4;"></i></a></li>
-                  <li><a href="https://www.linkedin.com/in/soyel-alam-98945598/" target="_empty"><i class="fa top-social fa-linkedin" style="color: #4289b2; border-color:#4289b2;"></i></a></li>
-                  <li><a href="https://www.medium.com/@soyelherein" target="_empty"><i class="fa top-social fa-medium" style="color: #101110; border-color:#101110;"></i></a></li>
-                </ul>
+                </address> -->
+                
                 </div>
               </div>
             </div>
