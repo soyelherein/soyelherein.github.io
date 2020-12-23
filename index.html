@@ -129,7 +129,7 @@ License URL: https://creativecommons.org/licenses/by/4.0/
     <!--====================================================
                         PORTFOLIO
     ======================================================-->
-    <section class="resume-section p-3 p-lg-12 d-flex flex-column" id="portfolio">
+    <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="portfolio">
       <div class="row my-auto">
           <div class="col-12">
             <h2 class="  text-center">Blog</h2>
@@ -368,7 +368,6 @@ License URL: https://creativecommons.org/licenses/by/4.0/
               </div>
               <div class="col-7">
               <form id="contact-form" action="" method="POST" data-netlify="true" data-netlify-recaptcha="true">
-              <?php echo $msg; ?>
               <div class="row con-form">
                 <div class="col-md-12">
                   <input type="text" name="Name" placeholder="Full Name" class="form-control" required>
@@ -381,9 +380,11 @@ License URL: https://creativecommons.org/licenses/by/4.0/
                 </div>
                 <div class="col-md-12"><textarea name="Message" id="" required></textarea></div>
                 </p>
-                <div data-netlify-recaptcha="true"></div>
+                <div class="col-md-12" data-netlify-recaptcha="true" data-callback="recaptchaCallback">
+                </div>
                 <p>
-                <div class="col-md-12 sub-but"><button class="btn btn-general btn-white" role="button">Send</button></div>
+                <div class="col-md-12 sub-but"><button id="submitBtn" role="button" disabled>Send</button>
+                </div>
               </div>
             </div>
           </form>
@@ -448,6 +449,10 @@ License URL: https://creativecommons.org/licenses/by/4.0/
             });
 
         });
+        function recaptchaCallback() {
+    // $('#submitBtn').removeAttr('disabled');
+    document.getElementById('submitBtn').removeAttribute('disabled')
+};
     </script>
 </body>
 
