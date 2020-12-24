@@ -11,8 +11,9 @@ License URL: https://creativecommons.org/licenses/by/4.0/
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="Pyspark pipeline testing with CICD">
+    <meta name="author" content="soyel alam">
+    <meta name="keywords" content="Spark, Jenkins, docker, Big Data, Data Engineering, Data Pipeline, Testing">
 
     <link rel="shortcut icon" href="../img/blog-solid.ico">
     <title>Soyel Alam</title>
@@ -26,13 +27,14 @@ License URL: https://creativecommons.org/licenses/by/4.0/
     <link href="../css/devicons/css/devicons.min.css" rel="stylesheet">
     <link href="../css/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
     <link href="../css/style.css" rel="stylesheet">
+    <script src="https://platform.linkedin.com/in.js" type="text/javascript">lang: en_US</script>
 </head>
 
 <body id="page-top">
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-blog fixed-top" id="sideNav">
       <a class="navbar-brand " href="#page-top">
-        <span class="d-block d-lg-none  mx-0 px-0"><img src="../img/logo-white.png" alt="" class="img-fluid"></span>
+        <!-- <span class="d-block d-lg-none  mx-0 px-0"><img src="../img/logo-white.png" alt="" class="img-fluid"></span> -->
         <span class="d-none d-lg-block">
           <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="../img/profile.jpg" alt="">
         </span>
@@ -94,6 +96,12 @@ License URL: https://creativecommons.org/licenses/by/4.0/
                       We will leverage <a href='https://spark.apache.org/'>Apache PySpark</a> and <a href='https://docs.pytest.org/en/stable/'>Pytest</a> to develop a generic conftest file for providing the dev environment.
                       Follow along code is available at <a href='https://github.com/soyelherein/pyspark-cicd-template'><strong>https://github.com/soyelherein/pyspark-cicd-template</strong></a><br/><br/>
                   </p>
+                  <p>
+                    <div class="container">
+                        <div class="row">
+                        <div class="col-md-8 col-sm-8">
+                    <img src="../img/pipeline.png" style="max-width: 100%;" />
+                </div></div></div></p>
                   <p>
                     Lets look into our pipeline and break it into testable modules.
                     For demonstration purposes, let’s consider we have pipeline that consumes “pageviews” file and merges it into the final target table.
@@ -259,6 +267,20 @@ License URL: https://creativecommons.org/licenses/by/4.0/
 
                                 <p style="text-align: right; color:gray">Published on 18 December 2020 ©soyel.alam@ucdconnect.ie</p>
                  </div>
+                 <div class="container">
+                    <div class="row">
+                 <!-- LikeBtn.com BEGIN -->
+<span class="likebtn-wrapper" data-theme="github" data-ef_voting="buzz" data-rich_snippet="true" data-dislike_enabled="false" data-voting_cancelable="false" data-voting_frequency="60" data-group_identifier="soyelherein" data-counter_frmt="km" data-share_size="large"></span>
+<script>(function(d,e,s){if(d.getElementById("likebtn_wjs"))return;a=d.createElement(e);m=d.getElementsByTagName(e)[0];a.async=1;a.id="likebtn_wjs";a.src=s;m.parentNode.insertBefore(a, m)})(document,"script","//w.likebtn.com/js/w/widget.js");</script>
+<!-- LikeBtn.com END -->
+                 <!-- begin wwww.htmlcommentbox.com -->
+                    <script type="IN/Share" data-url="https://soyelherein.tech/blog/pyspark-cicd.html"></script>
+                </div>
+                </div>
+ <div id="HCB_comment_box"><a href="http://www.htmlcommentbox.com">HTML Comment Box</a> is loading comments...</div>
+ <link rel="stylesheet" type="text/css" href="https://www.htmlcommentbox.com/static/skins/bootstrap/twitter-bootstrap.css?v=0" />
+ <script type="text/javascript" id="hcb"> /*<!--*/ if(!window.hcb_user){hcb_user={};} (function(){var s=document.createElement("script"), l=hcb_user.PAGE || (""+window.location).replace(/'/g,"%27"), h="https://www.htmlcommentbox.com";s.setAttribute("type","text/javascript");s.setAttribute("src", h+"/jread?page="+encodeURIComponent(l).replace("+","%2B")+"&mod=%241%24wq1rdBcg%2492B66tEYAEai1DwnXOiuL0"+"&opts=16862&num=10&ts=1608774727642");if (typeof s!="undefined") document.getElementsByTagName("head")[0].appendChild(s);})(); /*-->*/ </script>
+<!-- end www.htmlcommentbox.com -->
           </div>
   </section>
 
