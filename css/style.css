@@ -35,6 +35,12 @@ h2 {
     font-size: 3.5rem;
 }
 
+h3 {
+    font-size: 150%;
+    font-family: 'Open Sans', sans-serif;
+    text-transform: none;
+  }
+
 a {
     color: #2196f3;
 }
@@ -253,6 +259,12 @@ a:active {
   font-family: 'Open Sans', sans-serif;
   text-transform: none;
 }
+
+#blog h3 {
+    font-size: 150%;
+    font-family: 'Open Sans', sans-serif;
+    text-transform: none;
+  }
 
 #blog h4 {
     font-size: 150%;
@@ -815,4 +827,36 @@ a:active {
     height:100%;
     width:100%;
     position:absolute;
+}
+
+
+/*====================================================
+                   Comment box
+======================================================*/
+
+
+#HCB_comment_box h3 {
+    font-size: 150%;
+    font-family: 'Open Sans', sans-serif;
+    text-transform: none;
+  }
+  
+#HCB_comment_box .text-blur {
+    color:white;
+  }
+#HCB_comment_box .text-focus {
+    color:whitesmoke;
+  }
+
+
+#HCB_comment_box #hcb_form_name {
+    border-color: #ccc;
+    border-radius: 0;
+    color: #717171;
+}
+
+#HCB_comment_box #hcb_form_content {
+    border-color: #ccc;
+    border-radius: 0;
+    color: #717171;
 }
