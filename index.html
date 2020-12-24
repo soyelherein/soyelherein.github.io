@@ -380,10 +380,12 @@ License URL: https://creativecommons.org/licenses/by/4.0/
                 </div>
                 <div class="col-md-12"><textarea name="Message" id="" required></textarea></div>
                 </p>
-                <div class="col-md-12" data-netlify-recaptcha="true" data-callback="recaptchaCallback">
-                </div>
+                <!-- <div class="col-md-12" data-netlify-recaptcha="true" data-callback="recaptchaCallback">
+                </div> -->
+                <div class="col-md-12 g-recaptcha" data-sitekey="6LcY2BAaAAAAAG04g7M_b1aO55u_1iVauLIT-J01" data-callback="recaptchaCallback"></div>
                 <p>
-                <div class="col-md-12 sub-but"><button id="submitBtn" role="button" disabled>Send</button>
+                <div class="col-md-12 sub-but">
+                  <button id="submitBtn" role="button" disabled>Send</button>
                 </div>
               </div>
             </div>
@@ -449,7 +451,9 @@ License URL: https://creativecommons.org/licenses/by/4.0/
             });
 
         });
-        function recaptchaCallback() {
+    </script>
+    <script>
+function recaptchaCallback() {
     $('#submitBtn').removeAttr('disabled');
 };
     </script>
