@@ -157,7 +157,20 @@ License URL: https://creativecommons.org/licenses/by/4.0/
               </div>
             </div>
           </div>
-          <div class="resume-item col-md-6 col-sm-12 filter finance consulting">
+          <div class="resume-item col-md-6 col-sm-12 filter finance">
+            <div class="card mx-0 p-4 mb-5" style="border-color: #17a2b8; box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.21)">
+              <div class=" resume-content mr-auto">
+                  <h3 class="mb-3"><i class="fas fa-fan mr-3 text-info"></i>I want the all the tasks in the DAG to finish! before the next DAG run</h3>
+                  <p>We were migrating a few pipelines that consume incremental data and calculate <a href="https://en.wikipedia.org/wiki/Slowly_changing_dimension#Type_2:_add_new_row" target="empty">SCD2</a> before writing into the target SCD table.
+                    <br>Let's consider the write to final table task failed. In the next scheduled time DAG calculated the SCD based on next incremental file reffering the older history. 
+                    <br>It could potentially cause out of order records. We will discuss how we stopped the the next Dag run where we had a failed DAG.</p>
+              </div>
+              <div class="resume-date text-md-right">
+                  <span class="text-primary"><a href='blog/airflow-dag-past-run-sense.html'>read more...</a></span>
+              </div>
+            </div>
+          </div>
+          <div class="resume-item col-md-6 col-sm-12 filter finance">
             <div class="card mx-0 p-4 mb-5" style="border-color: #17a2b8; box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.21)">
               <div class=" resume-content mr-auto">
                   <h3 class="mb-3"><i class="fas fa-fan mr-3 text-info"></i>Where are my spark logs! Adding external link to an Airflow operator</h3>
@@ -166,17 +179,6 @@ License URL: https://creativecommons.org/licenses/by/4.0/
                     But, everytime we want to see the application logs we have to get the livy batch id, go to livy portal, take the spark application id and go to master and container logs.
                     Thanks to Airflow custom link that made the log accessible in just a click, with some little coding.
                     This blog-post discuss how to add a custom link to an Airflow Opetaror </p>
-              </div>
-              <div class="resume-date text-md-right">
-                  <span class="text-primary"><a href='index.html#blog'>coming soon...</a></span>
-              </div>
-            </div>
-          </div>
-          <div class="resume-item col-md-6 col-sm-12 filter finance">
-            <div class="card mx-0 p-4 mb-5" style="border-color: #17a2b8; box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.21)">
-              <div class=" resume-content mr-auto">
-                  <h3 class="mb-3"><i class="fas fa-fan mr-3 text-info"></i>I want the all the tasks in the DAG to finish! before the next DAG run.</h3>
-                  <p>Coming soon</p>
               </div>
               <div class="resume-date text-md-right">
                   <span class="text-primary"><a href='index.html#blog'>coming soon...</a></span>
@@ -366,7 +368,7 @@ License URL: https://creativecommons.org/licenses/by/4.0/
                 <h2 class="  text-center">EMAIL ME</h2>
                 <div class="mb-5 heading-border"></div>
               </div>
-              <div class="col-7">
+              <div class="col-sm-8 col-lg-8 col-xs-8 col-md-8">
               <form id="contact-form" action="" method="POST" data-netlify="true" data-netlify-recaptcha="true">
               <div class="row con-form">
                 <div class="col-md-12">
