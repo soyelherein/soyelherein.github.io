@@ -247,11 +247,11 @@ a:active {
 /*==================================================
                       BLOG
 ====================================================*/
-#blog {
-}
 
 #blog p{
     margin: 100px,130px,100px,400px;
+    font-family: 'Trebuchet MS', Helvetica, sans-serif;
+    color: #1e1f20;
 }
 
 #blog h2 {
@@ -272,10 +272,6 @@ a:active {
     text-transform: none;
   }
 
-#blog p {
-    font-family: 'Trebuchet MS', Helvetica, sans-serif;
-    color: #1e1f20;
-}
 
 /*==================================================
                     EXPERIENCE
@@ -860,3 +856,7 @@ a:active {
     border-radius: 0;
     color: #717171;
 }
+
+/*====================================================
+                   Gist
+======================================================*/

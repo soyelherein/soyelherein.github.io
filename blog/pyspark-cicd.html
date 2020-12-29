@@ -90,7 +90,7 @@ License URL: https://creativecommons.org/licenses/by/4.0/
                      Obviously, this requires a good knowledge of the application and how well the data matches business requirements. Also required are some set-ups to enable the developer to focus on building the application instead of spending time on the environment preparation.
                      This blog-post focuses on providing a model of self-contained data pipelines with CICD implementation.
                     </p>
-                  <h4>Introduction</h4>
+                  <h3>Introduction</h3>
                   <p>
                       A typical pipeline uses files, tables and dataframes these will be made available from datafiles stored in git along with the pipeline code.<br/>
                       We will leverage <a href='https://spark.apache.org/'>Apache PySpark</a> and <a href='https://docs.pytest.org/en/stable/'>Pytest</a> to develop a generic conftest file for providing the dev environment.
@@ -180,7 +180,7 @@ License URL: https://creativecommons.org/licenses/by/4.0/
                     </p>
                     
                     <script src="https://gist.github.com/soyelherein/4846e622ee40adcd2b2680aac5fbb986.js"></script>
-                    <h4>Decouple Spark Environment</h4>
+                    <h3>Decouple Spark Environment</h3>
                     <p>As it becomes tedious and impractical to test and debug spark-jobs by sending them to a cluster (<em>spark-submit</em>) and teams can become Sherlock Holmes — investigating clues in stack-traces on what could have gone wrong.
                         <strong>pipenv</strong> — To avoid the lifeless scenarios we might encounter, we can create an isolated environment (say thanks to <a href='https://pypi.org/project/pipenv/'><em>pipenv</em></a>) to initiate a <em>Pyspark</em> session whereas:</p>
                         <ul>
@@ -199,7 +199,7 @@ License URL: https://creativecommons.org/licenses/by/4.0/
                             dependencies/job_submitter.py --job pipeline_wo_modules
                         </code></pre>
                         <p></p>It is entrusted with starting and stopping spark sessions, parsing the configuration files containing static variables, and any dynamic command-line arguments then executing the requested pipeline. Please head back to the <a href='https://github.com/soyelherein/pyspark-cicd-template/blob/master/dependencies/job_submitter.py'>Github</a> repo for the details.</p>
-                        <p><h4>Decouple Application</h4>
+                        <p><h3>Decouple Application</h3>
                             <strong>jobs</strong> — We design our functions to have Extract and Load functions to handle the IO operations, we will test those using mocks to avoid side effects. Transform functions are designed to be side-effect free by taking DataFrames as input and returning DataFrames as output, which can be compared against the locally stored data.
                             Additionally, we will have an entry point method named to run for our pipeline doing the integration of the ETL.
                             Developers are encouraged to have different pipeline files inside the jobs directory focusing on different business logic instead of having a single big file.</p>
@@ -213,7 +213,7 @@ License URL: https://creativecommons.org/licenses/by/4.0/
                                 We will also take out the schema from the code in the ddl/schema.py file. This will be helpful to create the test data in the form of DataFrames and Tables using a helper method during testing.</p>
                                 <script src="https://gist.github.com/soyelherein/ab5024b4da6aa22a1b84e4b7aa6eaf7b.js"></script>
                                 <p>Given that we have structured our ETL jobs in testable modules we are all set to focus on the tests.</p>
-                            <p><h4>Testbed</h4>
+                            <p><h3>Testbed</h3>
                                 <strong>conftest</strong> — We have used P<a href='https://docs.pytest.org/en/stable/'>ytest</a> style tests for our pipeline along with leveraging a few features (i.e. mock, patch) from <a href='https://docs.python.org/3/library/unittest.html'>unittest</a>.
                                 This file does the heavy lifting of setting up jobs for tests i.e. providing test sparkSession and mocks creating the tables and DataFrames locally from the CSV files. The mapping is defined in the testbed.json file.
                                 <script src="https://gist.github.com/soyelherein/2ada1d422625dbed3f6da22330dccded.js"></script>
@@ -238,7 +238,7 @@ License URL: https://creativecommons.org/licenses/by/4.0/
                                     <img src="../img/pytest.png" style="max-width: 100%;" />
                                 </div></div></div></p>
                                 <p>In a complex production scenario, related pipeline methods can be connected in terms of inputs and expected outputs which is immutable. A fair understanding of application and segregation of different subject area can provide a valuable regression like confidence for CICD integration.</p>                    
-                                <p><h4>CICD : </h4>
+                                <p><h3>CICD : </h3>
                                 <strong>Dockerfile —</strong> Contains the dockerized container with the virtual environment set up for the Jenkins agent.<br/>
                                 <strong>Makefile —</strong>  This Makefile utility zips all the code, dependencies, and config in the packages.zip file so that Jenkins can create the artifact, and the CD process can upload it into a repository. The final code can be submitted as below:<br/>
                                 <pre><code class='language-shell' lang='shell'>$SPARK_HOME/bin/spark-submit \
@@ -257,15 +257,15 @@ License URL: https://creativecommons.org/licenses/by/4.0/
 
 
                                     
-                                <h4>References</h4>
-                                <p><a href='https://alexioannides.com/2019/07/28/best-practices-for-pyspark-etl-projects/'><strong>Best Practices for PySpark ETL Projects</strong>
+                                <h3>References</h3>
+                                <p><a href='https://alexioannides.com/2019/07/28/best-practices-for-pyspark-etl-projects/' target="_empty"><strong>Best Practices for PySpark ETL Projects</strong>
                                 <em>I have often lent heavily on Apache Spark and the SparkSQL APIs for operationalising any type of batch data-processing…</em>alexioannides.com</a></p>
-                                <p><a href='https://developerzen.com/best-practices-writing-production-grade-pyspark-jobs-cb688ac4d20f'><strong>Best Practices Writing Production-Grade PySpark Jobs</strong>
+                                <p><a href='https://developerzen.com/best-practices-writing-production-grade-pyspark-jobs-cb688ac4d20f' target="_empty"><strong>Best Practices Writing Production-Grade PySpark Jobs</strong>
                                 <em>How to Structure Your PySpark Job Repository and Code</em>developerzen.com</a></p>
-                                <p><a href='https://medium.com/wbaa/datas-inferno-7-circles-of-data-testing-hell-with-airflow-cef4adff58d8'><strong>Data’s Inferno: 7 Circles of Data Testing Hell with Airflow</strong>
+                                <p><a href='https://medium.com/wbaa/datas-inferno-7-circles-of-data-testing-hell-with-airflow-cef4adff58d8' target="_empty"><strong>Data’s Inferno: 7 Circles of Data Testing Hell with Airflow</strong>
                                 <em>Why data testing is hard, but you should really do it!</em>medium.com</a></p>
 
-                                <p style="text-align: right; color:gray">Published on 18 December 2020 ©soyel.alam@ucdconnect.ie</p>
+                                <p style="text-align: right; color:gray">Published on 18th December 2020 ©soyel.alam@ucdconnect.ie</p>
                  </div>
                  <div class="container">
                     <div class="row">
