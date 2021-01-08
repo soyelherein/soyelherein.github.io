@@ -83,7 +83,10 @@ License URL: https://creativecommons.org/licenses/by/4.0/
         <div class="my-auto">
             <div class="mb-0">
                   <h2>Airflow: I want all the tasks in the DAG to finish! Before the next DAG run</h2>
-                  <p> In an ideal world, An airflow task should represent an atomic transaction. 
+                  <p> <div class="container">
+                      <div class="row">
+                          <div class="col-sm-6 col-md-6">
+                      In an ideal world, An airflow task should represent an atomic transaction. 
                       A failure in the task should not lead to any inconsistency in the system. 
                       But we data-engineer, do deviate from that ideal world, especially when we have to minimize the changes to the data processing logic while migrating an old application.<br>
                       So here we are, We were migrating a few pipelines that calculate <a href="https://en.wikipedia.org/wiki/Slowly_changing_dimension#Type_2:_add_new_row" target="empty">SCD2</a>. On a high level, these processes have three parts.<br>
@@ -93,6 +96,11 @@ License URL: https://creativecommons.org/licenses/by/4.0/
                         <li>Enrich the historical data.</li>
                       </strong></ol>
                       This process runs every hour and the output enriched SCD2 data forms the baseline of the next processing.
+                    </div>
+                    <div class="col-sm-6 col-md-6">
+                        <iframe src="../img/blog_airflow-cyclic-dependency/dependency.gif" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>                    </div>
+                    </div>
+                    </div>
                     <div class="content">
                         <div class="row" style="background-color: #eeeeee; margin: 2px;">
                             <div class="col-md-3 col-sm-3"></div>
@@ -203,7 +211,7 @@ License URL: https://creativecommons.org/licenses/by/4.0/
                     </strong>
                         </a></p>
                 <p style="text-align: right; color:gray">Published on 29th December 2020 ©soyel.alam@ucdconnect.ie</p>
-                 <div class="container">
+                 <div class="container" style="padding-left: 15px;">
                     <div class="row" >
                         <div class="col-md-0 col-sm-0">
                  <!-- LikeBtn.com BEGIN -->
