@@ -12,6 +12,10 @@ body {
         padding-top: 0;
         padding-left: 17rem;
     }
+    img {
+        max-width: 100%;
+    }
+
 }
 
 h1,
@@ -869,3 +873,37 @@ a:active {
     margin-right: 0;
     margin-left: 0;
 }
+
+
+@media (min-width: 481px) and (max-width: 767px) {
+  
+    .gist {
+        max-width:420px;
+        overflow:auto;
+    }
+    
+    
+  }
+  
+  /* 
+    ##Device = Most of the Smartphones Mobiles (Portrait)
+    ##Screen = B/w 320px to 479px
+  */
+  
+  @media (min-width: 320px) and (max-width: 480px) {
+    
+    .gist {
+        max-width:310px;
+        overflow:auto;
+    }
+
+    img {
+        max-width: 95%;
+    }
+    
+    iframe{
+        width:310px;
+        max-width: 95%; 
+    }
+    
+  }
