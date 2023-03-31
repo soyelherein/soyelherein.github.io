@@ -1,0 +1,244 @@
+<!--
+author: Boostraptheme
+author URL: https://boostraptheme.com
+License: Creative Commons Attribution 4.0 Unported
+License URL: https://creativecommons.org/licenses/by/4.0/
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Pyspark pipeline testing with CICD">
+    <meta name="author" content="soyel alam">
+    <meta name="keywords" content="Spark, Testing, Data Pipeline, Jenkins, CICD, Big Data, Data Engineering">
+    <meta name="viewport" content="width=device-width, initial-scale=0.4">
+
+    <link rel="shortcut icon" href="../img/blog-solid.ico">
+    <title>How to Ensure GDPR Compliance in Hadoop-based Systems</title>
+
+    <!-- Global stylesheets -->
+    <link href="../css/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:100,200,300,400,500,600,700,800,900"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i"
+        rel="stylesheet">
+    <!-- <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet"> -->
+    <script src="https://kit.fontawesome.com/004e4d6853.js" crossorigin="anonymous"></script>
+    <link href="../css/devicons/css/devicons.min.css" rel="stylesheet">
+    <link href="../css/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+    <script src="https://platform.linkedin.com/in.js" type="text/javascript">lang: en_US</script>
+</head>
+
+<body id="page-top">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-blog fixed-top" id="sideNav">
+        <a class="navbar-brand " href="#page-top">
+            <!-- <span class="d-block d-lg-none  mx-0 px-0"><img src="../img/logo-white.png" alt="" class="img-fluid"></span> -->
+            <span class="d-none d-lg-block">
+                <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="../img/profile.jpg" alt="">
+            </span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link " href="../index.html#about">About</a>
+                </li>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link  active" href="../index.html#portfolio">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="../index.html#experience">Experience</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="i../ndex.html#skills">Skills</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="../index.html#awards">Education</a>
+                <li class="nav-item">
+                    <a class="nav-link " href="../index.html#contact">Contact</a>
+                </li>
+                <li>
+                    <ul class="list-inline social-icon-f top-data">
+                        <li><a href="https://www.linkedin.com/in/soyel-alam-98945598/" target="_empty"><i
+                                    class="fa top-social fa-linkedin"
+                                    style="color: #4AB3F4; border-color:#4AB3F4;"></i></a></li>
+                        <li><a href="https://www.github.com/soyelherein" target="_empty"><i
+                                    class="fa top-social fa-github"
+                                    style="color:#101110; border-color:#101110;"></i></a></li>
+                        <li><a href="https://twitter.com/Soyelherein" target="_empty"><i
+                                    class="fa top-social fa-twitter"
+                                    style="color: #4AB3F4; border-color:#4AB3F4;"></i></a></li>
+                        <li><a href="https://www.medium.com/@soyelherein" target="_empty"><i
+                                    class="fa top-social fa-medium"
+                                    style="color: #101110; border-color:#101110;"></i></a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container-fluid p-0">
+
+        <!--====================================================
+                        PORTFOLIO
+    ======================================================-->
+        <section class="resume-section p-3 p-lg-5 d-flex d-column" id="blog">
+            <div class="my-auto">
+                <div class="mb-0">
+                    <h2>GDPR Compliance in Big Data and Hadoop-based Systems by data minimization</h2>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-6 col-md-6">
+                                <p>
+                                    Big data and Hadoop-based systems can offer efficient ways to manage and analyze large volumes of data at the cost of random access to records.
+                                    The latter become essential particularly to comply with different data protection guidelines such as GDPR that often requires deleting specific “personal identifiable information” from the system.
+                                    There are tools and storage that gives access to random records but it comes with its own challenge and forces the developer to carefully design each entity in the system individually.
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+                                    <img src="../img/blog_hadoop-for-data-compliance/gdpr_is_coming.jpeg" width="480" height="270"
+                                    frameBorder="0" class="giphy-embed" alt="GDPR is coming" />
+                                </div>
+                                <div class="col-sm-12 col-md-12">
+                                    Here are some of the key challenges:
+                                    <br/><br/>
+                                    <ul>
+                                    <li>
+                                        <b>Data deletion:</b> Hadoop based systems are optimized for high-speed data ingestion and query processing.Identifying the lineage of a specific record and deleting it entirely from the system may be challenging.
+                                    </li>
+                                    <li>
+                                        <b>Data retention:</b> These systems may be optimized for storing large volumes of data for long periods of time, business decisions often benefit from longer data history as well. On the contrary organizations must ensure that they are only storing personal identifiable information for as long as necessary as per the data governance rules. 
+                                    </li>
+                                    <li>
+                                        <b>Data anonymization:</b> Anonymizing data for a longer period for analytical use-case may require significant modifications to the database schema, queries and ETL, which can impact performance.
+                                    </li>
+                                    <li>
+                                        <b>Data access controls:</b> Various data protection policies require that organizations have appropriate data access controls in place to protect personal data. It can be challenging to implement fine-grained access controls.
+                                    </li>
+                                    </ul>
+                                    In order to address these challenges, organizations may need to take a holistic approach to data management. This may involve implementing data retention policies, data access controls, and data encryption, as well as utilizing technologies that are specifically designed to support GDPR compliance in big data and Hadoop-based systems.
+                                    With careful planning and the right tools, it's possible to design systems that comply with GDPR's requirements while still deriving useful insights from data.
+                                    In this blog we will focus on such a data architecture with privacy compliance in its center, from the very beginning. The approach tries to put the information in an organized way that would help manage the personal identifiable information from a single place. It would also touch upon a few scopes for a more robust system but doesn’t go into the details.
+                                    For the simplicity we would keep the discussion limited to a single area.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <h3>Create a Conformed User Dimension and Replacement Id mapping table</h3>
+                    <p>
+                        The first step in this approach is to create a <a href='https://data.rice.edu/news/data-warehouse-dimensional-modeling-and-conformed-dimensions'>conformed</a> user dimension, the idea here is that this is the single truth user dimension that would be used across different downstream data marts.
+                        There will be a second table that would store an alternative replacement ID (RID) for each actual user_id in the conformed dimension table that will be used to anonymize the out of erasure period data.
+                        In the later section we will see how the combination of these 2 tables will help us to anonymize and unlink out of retention personal data while still preserving its usefulness for analytical purposes.
+                        
+                    </p>
+                    <h3>Redact User-specific Data</h3>
+                    <p>
+                        Next, any downstream table that holds user-specific data should only hold the actual user_ids up to the allowed erasure time period. Once the data is out of this period an anonymized version of the dataset would be created with the help of the RID mapping for the data. For Example let’s say the table data retention is 1 year, but the allowed erasure deadline is 90 days. So the actual table would hold the user_ids for 90 days and a separate table/older partitions would hold the RIDs instead of the user_ids.
+                        In order to generate the key of the conformed dimension a consistent hashing algorithm of the user email can be used. In that case, if the user rejoins with the same email, the user can be linked back with the old records.
+                        A separate process can run system wide that creates an anonymized version of the dataset, which replaces the user_id with the rid, and redacts the related columns. This process ensures that personal data is not linked back to an individual once the records are removed from the conformed user dimension but still can be used for numerical analysis.
+
+                    </p>
+                    <h3>Erase User Data</h3>
+                    <p>
+                        When a user requests their data to be deleted, the organization should nullify the mapping in the replacement Id table. This removes the link between the actual user, and there are no extra steps involved for downstream processes. Whereas the data with rid will still be useful and the data in the downstream will be eventually anonymized after the allowed erasure period of 90 days.
+                        This ensures that any data kept into the conformed dimension for any legal case can’t be linked to any business intelligence use cases. If a consistent hashing is used to generate the RID, it can still be used to link back only in legal cases.
+                        In the below diagram, I have shown how data has changed in the dimension table over the period, but for the processing purpose only latest snapshot to be used.
+
+                        This ensures the minimal use of the data while still powering the data driven products.
+
+                    </p>
+                    <iframe src="../img/blog_pyspark_cicd/GDPR_and_hadoop_implementation" width="600" height="450" frameBorder="0" class="giphy-embed" allowFullScreen ></iframe>
+                    <h3>Aggregated Fact</h3>
+                    <p>
+                        Finally, it's important for organizations to carefully review their systems and ensure that personal data is not inadvertently propagated beyond the allowed time period. 
+                        The ETL process must not propagate the deleted user_id further, and the organization should keep track of any new data sources that could potentially introduce personal data.
+                    </p>
+                    <h3>Review Your Systems</h3>
+                    <p>
+                        Finally, it's important for organizations to carefully review their systems and ensure that personal data is not inadvertently propagated beyond the allowed time period. The ETL process must not propagate the deleted user_id further, and the organization should keep track of any new data sources that could potentially introduce personal data.
+                        In order to enable few functionalities outlined in this post it would be beneficial to store the table definition in code that would help marking the UII(User Identifiable information) fields. And the erasure process can use normal ETL, Machine learning and manual input to identify UII data.
+                        
+                        By following this approach, organizations can design their systems to comply with GDPR's requirements while still deriving useful insights from data. By using techniques such as data anonymization, retention policies, and aggregated fact tables, organizations can protect individuals' privacy while still benefiting from the power of big data and Hadoop-based systems.
+                        
+                        While there could be many nuances in data privacy, this article touches the tip of the iceberg. However, a simple process can be the most efficient one as it has fewer exceptions and lesser fault lines.
+
+                    </p>
+                    <p style="text-align: right; color:gray">Published on 28th March 2023 ©soyel.alam@ucdconnect.ie
+                    </p>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-1 col-sm-1">
+                            <!-- LikeBtn.com BEGIN -->
+                            <span class="likebtn-wrapper" data-theme="github" data-ef_voting="buzz"
+                                data-rich_snippet="true" data-dislike_enabled="false" data-voting_cancelable="false"
+                                data-voting_frequency="60" data-group_identifier="soyelherein" data-counter_frmt="km"
+                                data-share_size="large"></span>
+                            <script>(function (d, e, s) { if (d.getElementById("likebtn_wjs")) return; a = d.createElement(e); m = d.getElementsByTagName(e)[0]; a.async = 1; a.id = "likebtn_wjs"; a.src = s; m.parentNode.insertBefore(a, m) })(document, "script", "//w.likebtn.com/js/w/widget.js");</script>
+                            <!-- LikeBtn.com END -->
+                        </div>
+                        <div class="col-md-1 col-sm-1">
+                            <!-- begin wwww.htmlcommentbox.com -->
+                            <script type="IN/Share" data-url="https://soyelherein.tech/blog/hadoop-for-data-compliance.html"></script>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="HCB_comment_box"><a href="http://www.htmlcommentbox.com">HTML Comment Box</a> is loading
+                    comments...</div>
+                <link rel="stylesheet" type="text/css"
+                    href="https://www.htmlcommentbox.com/static/skins/bootstrap/twitter-bootstrap.css?v=0" />
+                <script type="text/javascript"
+                    id="hcb"> /*<!--*/ if(!window.hcb_user ) {hcb_user ={} ;} (function( ) {var  s =document.createElement("script"),  l =hcb_user.PAGE || (" " +window.location).replace(/'/g ,"%27"),  h ="https://www.htmlcommentbox.com" ;s.setAttribute("type" ,"text/javascript") ;s.setAttribute("src",  h +"/jread?page= " +encodeURIComponent(l).replace("+" ,"%2B" ) +"&mod=%241%24wq1rdBcg%2492B66tEYAEai1DwnXOiuL0 " +"&opts=16862&num=10&ts=1608774727642") ;if (typeof  s!="undefined") document.getElementsByTagName("head")[0].appendChild(s) ;})(); /*--> */ </script>
+                <!-- end www.htmlcommentbox.com -->
+            </div>
+        </section>
+
+
+
+        <!-- Global javascript -->
+        <script src="../js/jquery/jquery.min.js"></script>
+        <script src="../js/bootstrap/bootstrap.bundle.min.js"></script>
+        <script src="../js/jquery-easing/jquery.easing.min.js"></script>
+        <script src="../js/counter/jquery.waypoints.min.js"></script>
+        <script src="../js/counter/jquery.counterup.min.js"></script>
+        <script>
+            $(document).ready(function () {
+
+                $(".filter-b").click(function () {
+                    var value = $(this).attr('data-filter');
+                    if (value == "all") {
+                        $('.filter').show('1000');
+                    }
+                    else {
+                        $(".filter").not('.' + value).hide('3000');
+                        $('.filter').filter('.' + value).show('3000');
+                    }
+                });
+
+                if ($(".filter-b").removeClass("active")) {
+                    $(this).removeClass("active");
+                }
+                $(this).addClass("active");
+            });
+
+            // SKILLS
+            $(function () {
+                $('.counter').counterUp({
+                    delay: 10,
+                    time: 2000
+                });
+
+            });
+        </script>
+</body>
+
+</html>
