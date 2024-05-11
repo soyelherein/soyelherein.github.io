@@ -1,6 +1,6 @@
 <!--
-author: Boostraptheme
-author URL: https://boostraptheme.com
+author: Soyel Alam
+author URL: https://soyelherein.github.io/
 License: Creative Commons Attribution 4.0 Unported
 License URL: https://creativecommons.org/licenses/by/4.0/
 -->
@@ -19,7 +19,7 @@ License URL: https://creativecommons.org/licenses/by/4.0/
 
 
     <link rel="shortcut icon" href="../img/blog-solid.ico">
-    <title>Airflow: I want all the tasks in the DAG to finish! Before the next DAG run</title>
+    <title>Task Synchronization in Airflow: Achieving Task Completion Before the Next DAG Execution</title>
 
     <!-- Global stylesheets -->
     <link href="../css/bootstrap/bootstrap.min.css" rel="stylesheet">
@@ -85,20 +85,19 @@ License URL: https://creativecommons.org/licenses/by/4.0/
     <section class="resume-section p-3 p-lg-5 d-flex d-column" id="blog" style="background-color: #f8f8f8;">
         <div class="my-auto">
             <div class="mb-0">
-                  <h2>Airflow: I want all the tasks in the DAG to finish! Before the next DAG run</h2>
+                  <h2>Task Synchronization in Airflow: Implementing Idempotent DAGs </h2>
                   <p> <div class="container">
                       <div class="row">
                           <div class="col-sm-6 col-md-6">
                       In an ideal world, An airflow task should represent an atomic transaction. 
                       A failure in the task should not lead to any inconsistency in the system. 
-                      But we data-engineer, do deviate from that ideal world, especially when we have to minimize the changes to the data processing logic while migrating an old application.<br>
-                      So here we are, We were migrating a few pipelines that calculate <a href="https://en.wikipedia.org/wiki/Slowly_changing_dimension#Type_2:_add_new_row" target="empty">SCD2</a>. On a high level, these processes have three parts.<br>
+                      But we data-engineer, do deviate from that ideal world, especially when we work on a legacy application.<br>
+                      So here we are, We were migrating a few pipelines that calculate <a href="https://en.wikipedia.org/wiki/Slowly_changing_dimension#Type_2:_add_new_row" target="empty">Slowly Changing Dimension</a>. On a high level, these processes have three parts.<br>
                       <ol><strong>
-                        <li>Reads incremental datafiles.</li>
-                        <li>Reads historical data from tables and calculates SCD2.</li>
-                        <li>Enrich the historical data.</li>
+                        <li>Reading incremental data files.</li>
+                        <li>Comparing this data with historical records and preparing updates for changed records.</li>
+                        <li>Writing the updated data back into the system.</li>
                       </strong></ol>
-                      This process runs every hour and the output enriched SCD2 data forms the baseline of the next processing.
                     </div>
                     <div class="col-sm-6 col-md-6">
                         <img src="../img/blog_airflow-cyclic-dependency/dependency.gif" width="480" height="270" frameBorder="0" class="giphy-embed" alt="We depend on you"/>
@@ -114,8 +113,7 @@ License URL: https://creativecommons.org/licenses/by/4.0/
                             <div class="col-md-3 col-sm-3"></div>
                         </div>
                         </div>
-                        Here, If the final table loading fails, the subsequent run will have an outdated baseline (as shown in the below image) for the next <a href="https://airflow.apache.org/docs/apache-airflow/stable/dag-run.html">DAG run</a> unless we stop the processing and complete the DAG runs sequenctially. 
-                        Basically, we have a self dependency on the past run of the same DAG. More specifically task t2 of dag instance d2 depends on task t3 of dag instance d1.
+                        If the "load final table" tasks fails the subsequent run will have an outdated baseline for the next process. 
                     <div class="content" style="background-color: #fafafa;">
                         <div class="row">
                             <div class="col-md-4 col-sm-4">
@@ -128,16 +126,13 @@ License URL: https://creativecommons.org/licenses/by/4.0/
                          </div>
                         </div>
                     </div>
-                    Airflow doesn't provide a ready made configuration to achieve it. 
-                    Obviously, there are work arounds, here we will achieve the goal just by logically setting up the dependencies between tasks with no additional codes. 
-                    In the later section, we will explore a reusable template to handle a more complex example that covers conditionally skipped tasks, when there is no incremental data for processing.<br>
                     The complete code and run instructions are available at <a href="https://github.com/soyelherein/airflow-dag-past-run-sense" target="_empty"><strong>https://github.com/soyelherein/airflow-dag-past-run-sense</strong></a>
                 </p>
                   <!-- <h3>Introduction</h3> -->
                    <p><br><br><br><br>
-                       We could add a <strong>logical dependency read_incr_data >> load_final_table</strong> and set <strong>wait_for_downstream</strong> to true.<br>
+                       We achieved the desired dependencies by adding a <strong> dependency read_incr_data >> load_final_table</strong> and set <strong>wait_for_downstream</strong> to true.<br>
                        In this case, the first task of the DAG "read_incr_data" must wait for the last task "load_final_table" to be successful from the previous DAG run.
-                       Additionally, we can set <q>depends_on_past</q> True and <q>max_active_runs</q>, based on the requirement. <br>
+                       Additionally, we set <q>depends_on_past</q> True and <q>max_active_runs</q>. <br>
                        A quick brush-up of these <a href="https://airflow.apache.org/docs/apache-airflow/stable/faq.html">Airflow concepts</a> are given below:<br>
                        <blockquote><strong>wait_for_downstream (bool)</strong> – when set to true, an instance of task X will wait for tasks immediately downstream of the previous instance of task X to finish successfully before it runs.</blockquote>
                        <blockquote><strong>max_active_runs</strong> - the Airflow scheduler will run no more than max_active_runs DagRuns of your DAG at a given time.</blockquote>
@@ -164,11 +159,10 @@ License URL: https://creativecommons.org/licenses/by/4.0/
                         </div>
                     </p>
                  <h3>A More Complex Scenario</h3>
-                 In data-processing, at times we received 0 bytes feed or don't receive the file at all. 
-                 We want to check and skip the scheduled run is no data is available to process.
-                 We have introduce the "check_file_availability" task using <a href="https://airflow.apache.org/docs/apache-airflow/stable/_modules/airflow/operators/python.html#BranchPythonOperator"> BranchPythonOperator</a> to simulate the check for incremental data and decide on the skiping the loading. 
-                 To standardize the solution and reuse It for dags having "self dependency on the past run", let's have two <a href="https://airflow.apache.org/docs/apache-airflow/1.10.11/_modules/airflow/operators/dummy_operator.html"> Dummy </a>  starting and ending tasks. These 2 tasks and their dependencies will give the desired processing and can be incorporated readily.<br>
-                 Let's have a look into the DAG:
+                 In data processing, there are instances where we either receive a feed of 0 bytes or don't receive the file at all.<br><br>
+                 To address this, we aim to verify and skip the scheduled run if no data is available for processing. We've implemented the "check_file_availability" task utilizing the  <a href="https://airflow.apache.org/docs/apache-airflow/stable/_modules/airflow/operators/python.html#BranchPythonOperator"> BranchPythonOperator</a> to simulate the check for incremental data and decide on the skiping the loading. 
+                 To standardize this solution and facilitate its reuse for DAGs with a self-dependency on past runs, we propose the inclusion of two <a href="https://airflow.apache.org/docs/apache-airflow/1.10.11/_modules/airflow/operators/dummy_operator.html"> Dummy </a>  tasks: one as the starting task and the other as the ending task. By establishing dependencies between these tasks, we ensure the desired processing flow and enable easy integration into existing workflows.<br>
+                 Let's delve into the details of the DAG:
                  <p>
                     <div class="content">
                         <div class="row" style="background-color: #eeeeee; margin: 2px;">
@@ -179,7 +173,7 @@ License URL: https://creativecommons.org/licenses/by/4.0/
                             <div class="col-md-2 col-sm-2"></div>
                         </div>
                     </div>
-                    The below diagram gives the holistic view of the schedule in terms of skipped, success and failed tasks.
+                    The following diagram provides a comprehensive overview of the schedule, illustrating skipped, successful, and failed tasks.
                     <div class="row" style="background-color: #fafafa;">
                         <div class="col-md-3 col-sm-3">
                         </div>
@@ -192,15 +186,14 @@ License URL: https://creativecommons.org/licenses/by/4.0/
                     </div>
                 </p>
                 <p>
-                Here is the code snippet. The complete code and instructions for running them in docker are available at <a href="https://github.com/soyelherein/airflow-dag-past-run-sense" target="_empty"><strong>https://github.com/soyelherein/airflow-dag-past-run-sense</strong></a>
+                Below is a code snippet. You can find the complete code and instructions for running it in Docker at <a href="https://github.com/soyelherein/airflow-dag-past-run-sense" target="_empty"><strong>https://github.com/soyelherein/airflow-dag-past-run-sense</strong></a>
                 <script src="https://gist.github.com/soyelherein/5d6280f4e1e56390b0ab3fdebb3ba27d.js"></script>
                 <h3>HighLights</h3>
                 <ul>
                     <li>Specify depends_on_past=True for the "start_task".</li>
                     <li>Add a dependency link from "start_task" to "end_task"</li>
                     <li>Specify <a href="https://airflow.apache.org/docs/apache-airflow/stable/concepts.html#trigger-rules" target="_empty">trigger_rule</a> as "none_failed" for the "end_task", If it could have an upstream task skipped.</li>
-                    <li>If the DAG's skip task is setup using ShortCircuitOperator, It must be replaced with BranchPythonOperator. 
-                        The obvious reason being, for ShortCircuitOperator, the entire path of dependencies including the "end_task" will be skipped.
+                    <li>If the DAG's skip task is set up using the ShortCircuitOperator, it needs to be replaced with the BranchPythonOperator. The main reason for this change is that with the ShortCircuitOperator, the entire path of dependencies, including the "end_task," will be skipped.
                     </li>
                 </ul>
                  </p>               
@@ -214,25 +207,10 @@ License URL: https://creativecommons.org/licenses/by/4.0/
                 <p><a href='https://towardsdatascience.com/getting-started-with-airflow-using-docker-cd8b44dbff98' target="_empty"><strong>Getting Started with Airflow Using Docker
                     </strong>
                         </a></p>
-                <p style="text-align: right; color:gray">Published on 29th December 2020 ©soyel.alam@ucdconnect.ie</p>
+                <p style="text-align: right; color:gray">Published on 29th December 2021 ©soyelherein.github.io</p>
                  <div class="container" style="padding-left: 15px;">
                     <div class="row" >
                         <div class="col-md-0 col-sm-0">
-                 <!-- LikeBtn.com BEGIN -->
-<span class="likebtn-wrapper" data-theme="github" data-ef_voting="buzz" data-rich_snippet="true" data-dislike_enabled="false" data-voting_cancelable="false" data-voting_frequency="60" data-group_identifier="soyelherein_airflow_self_dep" data-counter_frmt="km" data-share_size="large"></span>
-<script>(function(d,e,s){if(d.getElementById("likebtn_wjs"))return;a=d.createElement(e);m=d.getElementsByTagName(e)[0];a.async=1;a.id="likebtn_wjs";a.src=s;m.parentNode.insertBefore(a, m)})(document,"script","//w.likebtn.com/js/w/widget.js");</script>
-<!-- LikeBtn.com END -->
-</div>
-                 <!-- begin wwww.htmlcommentbox.com -->
-                 <div class="col-md-1 col-sm-1">
-                    <script type="IN/Share" data-url="https://soyelherein.tech/blog/airflow-dag-past-run-sense.html"></script>
-                </div>
-                </div> 
-            </div>
- <div id="HCB_comment_box"><a href="http://www.htmlcommentbox.com">HTML Comment Box</a> is loading comments...</div>
- <link rel="stylesheet" type="text/css" href="https://www.htmlcommentbox.com/static/skins/bootstrap/twitter-bootstrap.css?v=0" />
- <script type="text/javascript" id="hcb"> /*<!--*/ if(!window.hcb_user){hcb_user={};} (function(){var s=document.createElement("script"), l=hcb_user.PAGE || (""+window.location).replace(/'/g,"%27"), h="https://www.htmlcommentbox.com";s.setAttribute("type","text/javascript");s.setAttribute("src", h+"/jread?page="+encodeURIComponent(l).replace("+","%2B")+"&mod=%241%24wq1rdBcg%2492B66tEYAEai1DwnXOiuL0"+"&opts=16862&num=10&ts=1608774727642");if (typeof s!="undefined") document.getElementsByTagName("head")[0].appendChild(s);})(); /*-->*/ </script>
-<!-- end www.htmlcommentbox.com -->
 
           </div>
   </section>
