@@ -1,7 +1,7 @@
 ---
 title: "📬 Standardizing Airflow Failure Alerts with HTML Templates"
 date: 2025-06-01
-layout: post
+layout:  bootstrap-post
 tags: [airflow, monitoring, alerting, email, devops]
 ---
 

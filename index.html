@@ -1,3 +1,7 @@
+---
+layout:
+title:
+---
 <!--
 author: Boostraptheme
 author URL: https://boostraptheme.com
@@ -134,7 +138,19 @@ License URL: https://creativecommons.org/licenses/by/4.0/
     <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="portfolio">
       <div class="row my-auto">
           <div class="col-12">
-            <h2 class="  text-center">Blog</h2>
+            <h2 class="  text-center">Latest Posts</h2>
+            <div class="mb-12 heading-border"></div>
+            <div class="row my-auto">
+              <div class="resume-item col-md-12 col-sm-12 filter consulting">
+                <div class="card mx-0 p-4 mb-5" style="border-color: #17a2b8; box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.21)">
+                  <div class=" resume-content mr-auto">
+            {% for post in site.posts %}
+              <li>
+                <a href="{{ post.url }}">{{ post.title }}</a> - {{ post.date | date: "%b %d, %Y" }}
+              </li>
+            {% endfor %}
+                  </div></div></div></div>
+            <h2 class="  text-center">Highlights</h2>
             <div class="mb-12 heading-border"></div>
           </div>
           <div class="col-md-12">
@@ -169,6 +185,19 @@ License URL: https://creativecommons.org/licenses/by/4.0/
               </div>
               <div class="resume-date text-md-right">
                   <span class="text-primary"><a href='blog/airflow-dag-past-run-sense.html'>read more...</a></span>
+              </div>
+            </div>
+          </div>
+          <div class="resume-item col-md-12 col-sm-12 filter finance">
+            <div class="card mx-0 p-4 mb-5" style="border-color: #17a2b8; box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.21)">
+              <div class=" resume-content mr-auto">
+                  <h3 class="mb-3">📬 Standardizing Airflow Alert Emails with HTML Templates</h3>
+                  <p>Failure emails from Airflow are often sparse and not very actionable. This post introduces a way to standardize and enrich alert emails using custom HTML templates — including metadata like DAG owner, priority, tags, recent failure history, and direct links to the Airflow UI.
+                    We show how to configure this in your environment, test it with a failing DAG, and use it as a reusable pattern for better observability and response.
+                  </p>
+              </div>
+              <div class="resume-date text-md-right">
+                  <span class="text-primary"><a href='2025/06/01/airflow-alert-email-template.html'>read more...</a></span>
               </div>
             </div>
           </div>
@@ -300,15 +329,15 @@ License URL: https://creativecommons.org/licenses/by/4.0/
       <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="awards">
           <div class="row my-auto">
               <div class="col-12">
-                <h2 class="  text-center">Education</h2>
+                <h2 class="  text-center">Career</h2>
                 <div class="mb-5 heading-border"></div>
               </div>
               <div class="main-award" id="award-box">
                   <div class="award">
                       <div class="award-icon"></div>
                       <div class="award-content">
-                          <span class="date">Nov 2019</span>
-                          <h5 class="title">AWS Certified Developer - Associate</h5>
+                          <span class="date">2023-</span>
+                          <h5 class="title"><img src="/img/optum.png" /> </h5>
                           <p class="description">
                           </p>
                       </div>
@@ -316,8 +345,8 @@ License URL: https://creativecommons.org/licenses/by/4.0/
                     <div class="award">
                       <div class="award-icon"></div>
                       <div class="award-content">
-                          <span class="date">May 2017</span>
-                          <h5 class="title">Oracle Data Integrator 11g Certified Implementation Specialist</h5>
+                          <span class="date">2021-2023</span>
+                          <h5 class="title"><img src="/img/meta.png"/></h5>
                           <p class="description">
                           </p>
                       </div>
@@ -325,8 +354,8 @@ License URL: https://creativecommons.org/licenses/by/4.0/
                   <div class="award">
                       <div class="award-icon"></div>
                       <div class="award-content">
-                          <span class="date">May 2015</span>
-                          <h5 class="title"><a href='https://www.youracclaim.com/badges/f38bbf67-ed83-40ad-bfbe-889be49dc0fa'>Oracle Business Intelligence Foundation Suite 11g Certified Implementation Specialist</h5></a>
+                          <span class="date">2018-2021</span>
+                          <h5 class="title"><img src="/img/groupon.png"/></h5>
                           <p class="description">
                           </p>
                       </div>
@@ -334,8 +363,8 @@ License URL: https://creativecommons.org/licenses/by/4.0/
                   <div class="award">
                       <div class="award-icon"></div>
                       <div class="award-content">
-                          <span class="date">Jul 2014</span>
-                          <h5 class="title"><a href='https://www.youracclaim.com/badges/d90b9f88-83b8-4d38-9e48-772f2cac0d3a'>Oracle PL/SQL Developer Certified Associate</h5></a>
+                          <span class="date">2017 - 2018</span>
+                          <h5 class="title"><img src="/img/ucd.png"/>Masters in Computer science</h5>
                           <p class="description">
                           </p>
                       </div>
@@ -344,7 +373,7 @@ License URL: https://creativecommons.org/licenses/by/4.0/
                     <div class="award-icon"></div>
                     <div class="award-content">
                         <span class="date">2017 - 2018</span>
-                        <h5 class="title">Masters in Computer science</h5>
+                        <h5 class="title"><img src="/img/tcs.png"/></h5>
                         <p class="description">
                         </p>
                     </div>
@@ -353,7 +382,7 @@ License URL: https://creativecommons.org/licenses/by/4.0/
                   <div class="award-icon"></div>
                   <div class="award-content">
                       <span class="date">2007 - 2011</span>
-                      <h5 class="title">Bachelor In Technology</h5>
+                      <h5 class="title"><img src="/img/nsec_logo.png"/>Bachelor In Technology</h5>
                       <p class="description">
                       </p>
                   </div>
