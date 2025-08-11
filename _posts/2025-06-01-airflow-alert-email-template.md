@@ -112,4 +112,7 @@ Want to try it out?
 → [Explore the GitHub repo](https://github.com/soyelherein/airflow-alert-template)  
 → Contributions and suggestions welcome!
 
+Read my other blogs [here](https://soyelherein.github.io/) 
+
+Published on 1st June 2025 ©soyelherein.github.io
 ---

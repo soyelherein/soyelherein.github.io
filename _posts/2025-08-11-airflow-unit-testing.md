@@ -1,5 +1,5 @@
 ---
-title: "🔍 Airflow DAG Unit Testing: No more broken dags"
+title: "⛔️ No more broken dags with Simple Airflow Unit Testing"
 date: 2025-08-11
 layout: bootstrap-post
 tags: [airflow, testing, devops, quality]
@@ -29,6 +29,8 @@ def test_for_import_errors():
     assert dags.import_errors == {}
 ```
 
+---
+
 ##  What it does:
 - Loads all DAGs from the dags/ folder
 - Verifies that no import errors exist
@@ -36,25 +38,40 @@ def test_for_import_errors():
 
 A lightweight but powerful safeguard in your testing suite.
 
+---
+
 ## How to Run These Tests
 Assuming you’re using pytest:
 ```
 export AIRFLOW_HOME=<location till dags folder>
+
 pytest
 ```
-Integrate it in CI or pre-commit hooks to block invalid DAGs early.
+And it works magic! Integrate it in CI or pre-commit hooks to block invalid DAGs early.
+
+---
 
 ## Why This Matters for Engineering Teams
 - **Fast Feedback**: Know immediately if a recent change broke your DAGs.
 - **Higher Confidence**: Safer refactoring and deployment cycles.
 - **Minimal Overhead**: One file, one assertion—yet effective.
 
+---
+
 ## What You Can Add Next
 - Validation of DAG metadata: check default retries, owner, tags, etc.
 - Mock external systems: ensures DAGs don’t fail due to missing services, airflow variables and connections
+
+---
 
 ## Conclusion
 A simple DagBag import test is all you need to catch glaring failures before deployment. It’s a great first step toward a full-fledged testing strategy. Try it now, run before every pipeline push, and sleep better at night.
 
 Repo: [soyelherein/airflow-unittest](https://github.com/soyelherein/airflow-alert-template/)
 Contributions and enhancements welcome!
+
+Read about my other posts [here](https://soyelherein.github.io/) 
+
+Published on 11th August 2025 ©soyelherein.github.io
+
+---
