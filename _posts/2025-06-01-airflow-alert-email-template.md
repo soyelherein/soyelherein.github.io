@@ -1,6 +1,6 @@
 ---
 title: "📬 Airflow Failure Alert Templates"
-date: 2025-06-23
+date: 2025-06-01
 layout: bootstrap-post
 tags: [airflow, alerting, email, devops, observability]
 ---
